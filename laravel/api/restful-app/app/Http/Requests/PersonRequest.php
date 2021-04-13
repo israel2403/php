@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PersonRequest extends FormRequest
+class PersonRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class PersonRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class PersonRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'firstSurname' => 'required',
+            'secondSurname' => 'required',
+            'age' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required!',
+            'firstSurname.required' => 'FirstSurname is required!',
+            'firstSurname.required' => 'SecondSurname is required!',
+            'age.required' => 'Age is required!'
         ];
     }
 }

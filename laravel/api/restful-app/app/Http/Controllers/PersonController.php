@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PersonRequest;
 use App\Models\Person;
 use App\Services\PersonService;
 use Exception;
@@ -44,16 +45,12 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PersonRequest $request)
     {
-        $data = $request->only([
-            'name' => 'required',
-            'firstSurname'=> 'required',
-            'secondSurname'=> 'required',
-            'age'=> 'required'
-        ]);
+        $validated = $request->validated();
         $result =['status' => 201];
-        $result['data'] = $this->personService->save($data);
+        $result['data'] = $this->personService->save($request);
+        return response()->json($result, $result['status']);
     }
 
     /**

@@ -2,16 +2,10 @@
 
 namespace App\Services;
 
-use App\Exceptions\EntityNotFoundException;
+use App\Http\Requests\PersonRequest;
+use App\Models\Person;
 use App\Repositories\PersonRepository;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
-use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PersonService
 {
@@ -41,15 +35,11 @@ class PersonService
         return $person;
     }
 
-    public function save($data)
+    public function save(PersonRequest $personRequest)
     {
-        request()->validate([
-                    'name' => 'required',
-                    'firstSurname'=> 'required',
-                    'secondSurname'=> 'required',
-                    'age'=> 'required',
-                ]);
-        $result = $this->personRepository->save($data);
+        $person = new Person();
+        $dataPerson = $personRequest->only($person->getFillable());
+        $result = $this->personRepository->save($dataPerson);
         return $result;
     }
 }
