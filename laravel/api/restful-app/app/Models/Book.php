@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Person extends Model
+class Book extends Model
 {
     use HasFactory;
-    protected $primarykey = 'id';
 
     protected $fillable = [
         'name',
-        'firstSurname',
-        'secondSurname',
-        'age'
+        'author',
+        'title',
+        'publishing_house',
+        'no_items'
     ];
 
     public function bookItems()
     {
-        return $this->belongsToMany(BookItem::class);
+        return $this->hasMany(BookItem::class);
     }
 }

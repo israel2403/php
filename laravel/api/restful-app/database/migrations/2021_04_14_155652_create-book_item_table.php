@@ -14,7 +14,8 @@ class CreateBookItemTable extends Migration
     public function up()
     {
         Schema::create('book_item', function (Blueprint $table) {
-            $table->bigIncrements("code");
+            $table->bigIncrements("id");
+            $table->string("code");
             $table->string("format");
             $table->string("book_shelf");
             $table->foreignId('book_id')
