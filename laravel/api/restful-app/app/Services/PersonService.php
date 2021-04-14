@@ -24,8 +24,8 @@ class PersonService
     public function getById($id)
     {
         $person = $this->personRepository->getById($id);
-        if(!$person){
-            throw new HttpException(404,"Person not found by ID: " . $id);
+        if (!$person) {
+            throw new HttpException(404, "Person not found by ID: " . $id);
         }
         return $this->personRepository->getById($id);
     }
@@ -34,7 +34,7 @@ class PersonService
     {
         $person = $this->personRepository->getById($id);
         if (!$person) {
-            throw new HttpException(404,"Person not found by ID: " . $id);
+            throw new HttpException(404, "Person not found by ID: " . $id);
         }
         $person = $this->personRepository->delete($id);
     }
