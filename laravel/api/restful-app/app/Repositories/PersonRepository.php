@@ -22,7 +22,7 @@ class PersonRepository
 
     public function getById($id)
     {
-        return  DB::table('person')
+        return  DB::table('persons')
         ->where('id', $id)
         ->first();
     }
