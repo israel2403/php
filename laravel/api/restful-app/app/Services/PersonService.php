@@ -27,7 +27,7 @@ class PersonService
         if (!$person) {
             throw new HttpException(404, "Person not found by ID: " . $id);
         }
-        return $this->personRepository->getById($id);
+        return $person;
     }
 
     public function delete($id)
@@ -46,8 +46,8 @@ class PersonService
             throw new HttpException(404, "Person not found by ID: " . $id);
         }
         $person = new Person();
-        $dataPerson = $personRequest->only($person->getFillable());
-        $person = $this->personRepository->update($dataPerson, $id);
+        $personToFind = $personRequest->only($person->getFillable());
+        $person = $this->personRepository->update($personToFind, $id);
         return $person;
     }
 
