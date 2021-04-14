@@ -16,6 +16,20 @@ class PersonService
         $this->personRepository = $personRepository;
     }
 
+    public function getAll()
+    {
+        return $this->personRepository->getAll();
+    }
+
+    public function getById($id)
+    {
+        $person = $this->personRepository->getById($id);
+        if(!$person){
+            throw new HttpException(404,"Person not found by ID: " . $id);
+        }
+        return $this->personRepository->getById($id);
+    }
+
     public function delete($id)
     {
         $person = $this->personRepository->getById($id);
@@ -25,13 +39,15 @@ class PersonService
         $person = $this->personRepository->delete($id);
     }
 
-    public function update($data, $id)
+    public function update(PersonRequest $personRequest, $id)
     {
-        $person = $this->personRepository->getById($id);
-        if (!$person) {
+        $personToFind = $this->personRepository->getById($id);
+        if (!$personToFind) {
             throw new HttpException(404, "Person not found by ID: " . $id);
         }
-        $person = $this->personRepository->update($data, $id);
+        $person = new Person();
+        $dataPerson = $personRequest->only($person->getFillable());
+        $person = $this->personRepository->update($dataPerson, $id);
         return $person;
     }
 

@@ -26,7 +26,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        return Person::all();
+        return $this->personService->getAll();
     }
 
     /**
@@ -59,9 +59,11 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function show(Person $person)
+    public function show( $id)
     {
-        //
+        $result = ['status' => 200];
+        $result['data'] = $this->personService->getById($id);
+        return response()->json($result, $result['status']);
     }
 
     /**
@@ -82,18 +84,12 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PersonRequest $request, $id)
     {
-        Log::info("Class PersonCotroller, method update");
-        $data = $request->only([
-            'name',
-            'firstSurname',
-            'secondSurname',
-            'age'
-        ]);
+        $validated = $request->validated();
 
         $result = ['status' => 200];
-            $result['data'] = $this->personService->update($data, $id);
+            $result['data'] = $this->personService->update($request, $id);
 
         return response()->json($result, $result['status']);
     }
