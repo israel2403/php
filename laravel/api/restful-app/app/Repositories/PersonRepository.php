@@ -10,6 +10,8 @@ class PersonRepository
 
     protected $person;
 
+    protected $table = 'persons';
+
     public function __construct(Person $person)
     {
         $this->person = $person;

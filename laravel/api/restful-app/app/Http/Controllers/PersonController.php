@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PersonRequest;
 use App\Models\Person;
 use App\Services\PersonService;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class PersonController extends Controller

@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Person extends Model
 {
     use HasFactory;
+    public $table = "persons";
     protected $primarykey = 'id';
 
     protected $fillable = [
         'name',
         'firstSurname',
         'secondSurname',
-        'age'
+        'age',
     ];
 
     public function bookItems()

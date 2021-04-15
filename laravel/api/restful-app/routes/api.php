@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\PersonController;
-use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,50 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware(['cors', 'json.response', 'auth:api'])->get('/user', function(Request $request){
     return $request->user();
 });
 
-// Route::post('/persons', function () {
-
-//     request()->validate([
-//         'name' => 'required',
-//         'firstSurname'=> 'required',
-//         'secondSurname'=> 'required',
-//         'age'=> 'required',
-//     ]);
-
-//     return Person::create([
-//         'name' => request('name'),
-//         'firstSurname' => request('firstSurname'),
-//         'secondSurname' => request('secondSurname'),
-//         'age' => request('age')
-//     ]);
-// });
-
-// Route::put('persons/{personId}', function (Person $person) {
-//     $person1 = Person::find(1);
-
-//     request()->validate([
-//         'name' => 'required',
-//         'firstSurname'=> 'required',
-//         'secondSurname'=> 'required',
-//         'age'=> 'required',
-//     ]);
-//         echo $person->name;
-//     $person1->name = "Israel Huerta";
-//     $person1->update();
-// });
-
-Route::resource('persons', PersonController::class);
-
 Route::group(['middleware' => ['cors', 'json.response']], function(){
     //public routes
-    Route::post('/login', 'Auth\ApiAuthController@login')->name('login.api');
-    Route::post('/register', 'Auth\ApiAuthController@register')->name('register.api');
+    Route::post('/login', 'App\Http\Controllers\Auth\ApiAuthController@login')->name('login.api');
+    Route::post('/register', 'App\Http\Controllers\Auth\ApiAuthController@register')->name('register.api');
+    Route::post('/logout' , 'App\Http\Controllers\Auth\ApiAuthController@logout')->name('logout.api');
 });
 
 
 Route::middleware('auth:api')->group(function(){
-    Route::post('/logout' , 'Auth\ApiAuthController@logout')->name('logout.api');
+    Route::get('/persons', 'App\Http\Controllers\PersonController@index')->middleware('api.admin')->name('persons');
 });
