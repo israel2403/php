@@ -48,9 +48,9 @@ class PersonController extends Controller
     public function store(PersonRequest $request)
     {
         $validated = $request->validated();
-        $result =['status' => 201];
-        $result['data'] = $this->personService->save($request);
-        return response()->json($result, $result['status']);
+        $response = ['message' =>  'store function'];
+        $response['data'] = $this->personService->save($request);
+        return response($response, 201);
     }
 
     /**
@@ -59,7 +59,7 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function show( $id)
+    public function show($id)
     {
         $result = ['status' => 200];
         $result['data'] = $this->personService->getById($id);
@@ -88,10 +88,10 @@ class PersonController extends Controller
     {
         $validated = $request->validated();
 
-        $result = ['status' => 200];
-            $result['data'] = $this->personService->update($request, $id);
+        $response = ['message' =>  'update function'];
+        $response['data'] = $this->personService->update($request, $id);
 
-        return response()->json($result, $result['status']);
+        return response($response, 200);
     }
 
     /**
