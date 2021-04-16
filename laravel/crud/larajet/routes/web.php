@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StartController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\View;
 });
  */
 
-if (View::exists('view2')) {
+/* if (View::exists('view2')) {
     Route::get('/', function () {
         return view('test/view2');
     });
@@ -27,7 +28,9 @@ if (View::exists('view2')) {
     Route::get('/', function () {
         return 'La vista solicitada no existe';
     });
-}
+} */
+
+Route::get('/', 'App\Http\Controllers\StartController@index');
 
 // Ejemplo 1:  return text
 Route::get('/text', function () {
