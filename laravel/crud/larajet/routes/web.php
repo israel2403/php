@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/* Route::get('/', function () {
+    return view('test/view1',['name'=>'Isra']);
 });
+ */
+
+if (View::exists('view2')) {
+    Route::get('/', function () {
+        return view('test/view2');
+    });
+} else {
+    Route::get('/', function () {
+        return 'La vista solicitada no existe';
+    });
+}
 
 // Ejemplo 1:  return text
 Route::get('/text', function () {
@@ -43,7 +55,7 @@ Route::get('/name/{name}', function ($name) {
 });
 
 # Example 5: default params
-Route::get('/clients/{client?}', function ($client='Cliente general') {
+Route::get('/clients/{client?}', function ($client = 'Cliente general') {
     return '<h1>The client is:  ' . $client . ' </h1>';
 });
 
@@ -58,7 +70,7 @@ Route::get('/route2', function () {
 
 # Example 7: Validations
 Route::get('/users/{userId}', function ($user) {
-    return 'The userId is: '.$user;
+    return 'The userId is: ' . $user;
 })->where('userId', '[0-9]+');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
