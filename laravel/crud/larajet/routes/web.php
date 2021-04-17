@@ -30,7 +30,12 @@ use Illuminate\Support\Facades\View;
     });
 } */
 
-Route::get('/', 'App\Http\Controllers\StartController@index');
+Route::get('/', function () {
+    $users = ['Israel', 'Rosaura', 'Rocío', 'Luis'];
+    return view('view1')->with('users', $users);
+});
+
+# Route::get('/', 'App\Http\Controllers\StartController@index');
 
 // Ejemplo 1:  return text
 Route::get('/text', function () {
