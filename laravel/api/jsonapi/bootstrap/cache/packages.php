@@ -24,6 +24,13 @@
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
     ),
   ),
+  'laravel-shift/blueprint' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Blueprint\\BlueprintServiceProvider',
+    ),
+  ),
   'laravel/sail' => 
   array (
     'providers' => 
